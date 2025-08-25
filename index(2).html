@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Zehra için Müziği Başlat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      background: linear-gradient(135deg, #0d1b2a, #1b263b, #0d1b2a);
+      font-family: 'Segoe UI', sans-serif;
+      color: #fff;
+      overflow: hidden;
+      padding-top: 20px;
+    }
+
+    .player, .location {
+      background: rgba(17,24,39,0.9);
+      padding: 25px 20px 20px 20px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+      text-align: center;
+      width: 320px;
+      margin-bottom: 30px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .poem {
+      font-family: 'Dancing Script', cursive;
+      color: #87cefa;
+      text-align: center;
+      font-size: 1.4rem;
+      line-height: 1.8rem;
+      text-shadow: 0 0 10px #1e90ff;
+      margin-bottom: 20px;
+    }
+
+    .cover {
+      width: 100%;
+      height: 300px;
+      border-radius: 15px;
+      background: url('kapak.jpg') center/cover no-repeat;
+      margin-bottom: 15px;
+    }
+
+    .title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .artist {
+      font-size: 1rem;
+      color: #a0aec0;
+      margin-bottom: 15px;
+    }
+
+    button {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 30px;
+      background: #1db954;
+      color: white;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #1ed760;
+    }
+
+    iframe {
+      margin-top: 15px;
+      border: none;
+      border-radius: 10px;
+    }
+
+    .floating {
+      position: absolute;
+      width: 40px;
+      height: 40px;
+      background: radial-gradient(circle at center, #5dade2 40%, transparent 70%);
+      border-radius: 50%;
+      animation: float 12s infinite ease-in-out;
+      opacity: 0.8;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) scale(0.5) rotate(0deg); opacity: 0; }
+      30% { opacity: 1; }
+      70% { opacity: 1; }
+      100% { transform: translateY(-10vh) scale(1.2) rotate(360deg); opacity: 0; }
+    }
+
+    /* Penguenler ve yazılar */
+    .penguin {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      background: url('penguen.png') center/contain no-repeat;
+      z-index: 4;
+    }
+
+    .penguin-text {
+      position: absolute;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1rem;
+      text-shadow: 0 0 5px #1e90ff;
+      z-index: 4;
+      animation: floatPenguin 3s ease-in-out infinite;
+    }
+
+    /* Renk geçiş animasyonu */
+    @keyframes colorChange {
+      0% { color: #87cefa; }
+      25% { color: #1e90ff; }
+      50% { color: #00bfff; }
+      75% { color: #87cefa; }
+      100% { color: #1e90ff; }
+    }
+
+    @keyframes floatPenguin {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0); }
+    }
+
+    /* Tanıştığımız Yer Bölümü */
+    .location h2 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.6rem;
+      color: #ff69b4;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px #ff1493;
+    }
+
+    .location p {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.2rem;
+      margin: 5px 0;
+      color: #fff;
+    }
+
+    .location .heart {
+      color: red;
+      font-size: 2rem;
+      margin-top: 5px;
+      animation: beat 1s infinite;
+    }
+
+    @keyframes beat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.4); }
+    }
+
+    /* Responsive */
+    @media (max-width: 400px) {
+      .player, .location { width: 90%; }
+      .poem { font-size: 1.2rem; line-height: 1.6rem; }
+      .penguin { width: 45px; height: 45px; }
+      .penguin-text { font-size: 0.9rem; }
+      .location h2 { font-size: 1.3rem; }
+      .location p { font-size: 1rem; }
+      .location .heart { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Şiir ve Müzik -->
+  <div class="player">
+    <div class="poem">
+      <p>Gözlerinle başlar her sabahım,</p>
+      <p>Seninle dolar her anım, her akşamım.</p>
+      <p>Mavi güller gibi kalbim açıyor sana,</p>
+      <p>Zehra, sen benim en güzel rüyamsın daima.</p>
+    </div>
+
+    <div class="cover"></div>
+    <div class="title">Qal Sənə Qurban</div>
+    <div class="artist">İlkin Dövlətov</div>
+    <button id="playBtn">Müziği Başlat 🎶</button>
+    <iframe id="ytplayer" width="100%" height="180" src="https://www.youtube.com/embed/HOanI8dOnGQ?enablejsapi=1" allow="autoplay" style="display:none;"></iframe>
+  </div>
+
+  <!-- Tanıştığımız Yer Bölümü -->
+  <div class="location">
+    <h2>Tanıştığımız Yer</h2>
+    <p>Azerbaycan Teknik Üniversitesi</p>
+    <div class="heart">❤️</div>
+  </div>
+
+  <script>
+    // Müziği başlat
+    document.getElementById("playBtn").addEventListener("click", function() {
+      const iframe = document.getElementById("ytplayer");
+      iframe.style.display = "block";
+      iframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
+      this.style.display = "none";
+    });
+
+    // Arka plan güller efekti
+    for (let i = 0; i < 20; i++) {
+      const rose = document.createElement("div");
+      rose.classList.add("floating");
+      rose.style.left = Math.random() * 100 + "vw";
+      rose.style.animationDuration = (8 + Math.random() * 8) + "s";
+      rose.style.animationDelay = Math.random() * 10 + "s";
+      document.body.appendChild(rose);
+    }
+
+    // Sayfanın köşelerine penguenler
+    const penguins = [
+      {x: '10px', y: '10px'},
+      {x: 'calc(100% - 70px)', y: '10px'},
+      {x: '10px', y: 'calc(100% - 70px)'},
+      {x: 'calc(100% - 70px)', y: 'calc(100% - 70px)'}
+    ];
+
+    penguins.forEach(pos => {
+      const peng = document.createElement('div');
+      peng.classList.add('penguin');
+      peng.style.left = pos.x;
+      peng.style.top = pos.y;
+      document.body.appendChild(peng);
+    });
+
+    // Sayfaya rastgele "Prensesim 💙" yazıları
+    for (let i = 0; i < 50; i++) {
+      const text = document.createElement('div');
+      text.classList.add('penguin-text');
+      text.style.left = Math.random() * 90 + "vw";
+      text.style.top = Math.random() * 90 + "vh";
+      text.style.fontSize = (12 + Math.random() * 10) + "px";
+      text.innerText = 'Prensesim 💙';
+      text.style.animation = `floatPenguin ${2 + Math.random() * 3}s ease-in-out infinite`;
+      text.style.animationName += ', colorChange';
+      text.style.animationDuration += ', 4s';
+      text.style.animationIterationCount = 'infinite';
+      document.body.appendChild(text);
+    }
+  </script>
+</body>
+</html>
